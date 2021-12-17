@@ -1,1 +1,1 @@
-Использовалась бибилотека py telegram bot api
+telegram bot api
