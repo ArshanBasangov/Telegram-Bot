@@ -1,14 +1,15 @@
 import random
 import telebot
-alldmg = 0
-dmg = 0
-cdmg = 0
-crit = 0
-elem = 0
+
+alldmg = 0 #Высчитанная атака
+dmg = 0 #Базованя атака
+cdmg = 0 #Урон навыка (в процентах)
+crit = 0 #Крит урон (в процентах)
+elem = 0 #Дополнительнвый урон (в процентах)
 from telebot import types
 bot = telebot.TeleBot('5098506762:AAGDDC0r9_2i05SRXmkzBhOBy-jRIDet_zg')
-@bot.message_handler(commands=['start'])
 
+@bot.message_handler(commands=['start']) #Запускает бота, пользователю предлагают команды на выбор
 def Welcome(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     button1 = types.KeyboardButton('Кинь фото Арианы🧚')
@@ -17,13 +18,13 @@ def Welcome(message):
     button4 = types.KeyboardButton('Посчитать урон')
     button5 = types.KeyboardButton('Что делать, если просрочил дедлайн?')
     markup.add(button1, button2, button3, button4, button5)
-    bot.send_message(message.chat.id, 'Привет, я бот Сана. Рада познакомиться! Я умею делать нне так уж и много вещей, но, думаю, нам будет весело.', reply_markup=markup)
+    bot.send_message(message.chat.id, 'Привет, я бот Сана. Рада познакомиться! Я умею делать не так уж и много вещей, но, думаю, нам будет весело.', reply_markup=markup)
     sti = open('ch.webp', 'rb')
     bot.send_sticker(message.chat.id, sti)
 
 @bot.message_handler(func=lambda m: True)
 
-def Talk(message):
+def Talk(message): # В зависимоти от выбранной команды, запускается нужная функция
     photos = ['https://www.trendsmap.com/ipx/https://pbs.twimg.com/media/Ek_LPzDWMAEDvMN.jpg', 'https://data.whicdn.com/images/315981200/original.jpg', 'https://video-images.vice.com/articles/60dda4e24dbc6c0095659133/lede/1625138404580-untitled-1.jpeg?crop=1xw:1xh;center,center&amp;resize=1200:*', 'https://townsquare.media/site/252/files/2018/11/ariana-grande4.jpg?w=1200&h=0&zc=1&s=0&a=t&q=89', 'https://i.pinimg.com/originals/29/d0/3b/29d03b8cbd6624364d935ef80ea7ab54.jpg']
     songs = ['Как родители-скелеты назвали своего сына? Костя.', "Колобок повесился.", "Русалка села на шпагат", "Подходит официантка к римлянам и спрашивает количество порций. И тут один из римлянин показывает указательный и средний палец."]
     if message.chat.type == 'private':
@@ -44,7 +45,7 @@ def Talk(message):
             bot.register_next_step_handler(message, ss)
         elif message.text == 'Что делать, если просрочил дедлайн?':
             bot.register_next_step_handler(message, planscam)
-def ss(message):
+def ss(message): # Запуск функции в зависимости от выбранной системы счисления
     if message.chat.type == 'private':
         if message.text == 'Из 2 сс':
             bot.send_message(message.chat.id, 'Введите число')
@@ -53,7 +54,7 @@ def ss(message):
             bot.send_message(message.chat.id, 'Введите число')
             bot.register_next_step_handler(message, vos)
 
-def repeatss(message):
+def repeatss(message): # После того, как бот перевел число из выбранной системы счисления, предлагается дальнейший путь
     if message.chat.type == 'private':
         if message.text == 'Назад':
             bot.send_message(message.chat.id, 'Что дальше?')
@@ -65,7 +66,7 @@ def repeatss(message):
             bot.send_message(message.chat.id, 'Введите число')
             bot.register_next_step_handler(message, dv)
 
-def vos(message):
+def vos(message): # Перевод из 8 сс
     number = int(message.text)
     n = 0
     answer = 0
@@ -81,7 +82,7 @@ def vos(message):
     bot.send_message(message.chat.id, answer, reply_markup=markup)
     bot.register_next_step_handler(message, repeatss)
 
-def dv(message):
+def dv(message): # Перевод из 2 сс
     number = int(message.text)
     n = 0
     answer = 0
@@ -97,26 +98,26 @@ def dv(message):
     bot.send_message(message.chat.id, answer, reply_markup=markup)
     bot.register_next_step_handler(message, repeatss)
 
-def baz(message):
+def baz(message): # Вводится атака и запускается подчет
     global dmg
     dmg = int(message.text)
     bot.send_message(message.chat.id, 'Введите урон таланта')
     bot.register_next_step_handler(message, cbaz)
-def cbaz(message):
+def cbaz(message): # Подсчет урона навыка
     global alldmg
     global cdmg
     cdmg = int(message.text)
     alldmg = dmg*(cdmg/100)
     bot.send_message(message.chat.id, 'Введите значение крита')
     bot.register_next_step_handler(message, critdmg)
-def critdmg(message):
+def critdmg(message): # Подсчет критического урона навыка
     global crit
     global alldmg
     crit = int(message.text)
     alldmg = alldmg*(crit/100)
-    bot.send_message(message.chat.id, 'Введите значение бонуснго урона')
+    bot.send_message(message.chat.id, 'Введите значение бонусного')
     bot.register_next_step_handler(message, elemdmg)
-def elemdmg(message):
+def elemdmg(message): # Подсчет критического урона навыка плюс бонусный урон
     global elem
     global alldmg
     elem = int(message.text)
@@ -124,7 +125,8 @@ def elemdmg(message):
     bot.send_message(message.chat.id, 'Получается примерно ' + str(alldmg))
     bot.register_next_step_handler(message, Welcome)
 
-def planscam(message):
+def planscam(message): # Отправляет ссылку на видео
     bot.send_message(message.chat.id, 'https://www.tiktok.com/@aanyyyyyaa/video/7034116221326904577?is_copy_url=0&is_from_webapp=v1&q=%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0%20%D0%BF%D1%80%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%B8%D0%BB%D0%B0%20%D0%B4%D0%B5%D0%B4%D0%BB%D0%B0%D0%B9%D0%BD&t=1639777232560&sender_device=pc&sender_web_id=7030209992129086977')
     bot.register_next_step_handler(message, Welcome)
 bot.polling(none_stop=True)
+
