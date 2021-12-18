@@ -1,7 +1,7 @@
 import bot
 import unittest.mock
 import pytest
-class tests(unittest, TestCase):
+class tests(unittest.TestCase):
     def test_1(self):
         with unittest.mock.patch('bot'):
             bot.bot = unittest.mock.Mock()
