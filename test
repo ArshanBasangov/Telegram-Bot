@@ -1,5 +1,5 @@
 import unittest
-from test import message
+from bot import message
 
 class test(unittest.TestCase):
     def test_1(self):
