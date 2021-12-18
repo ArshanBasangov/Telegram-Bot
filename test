@@ -1,16 +1,30 @@
-import unittest
 import bot
-from teletest import message
-
-class test(unittest.TestCase):
+import unittest.mock
+import pytest
+class tests(unittest, TestCase):
     def test_1(self):
-        self.assertEqual(testvos(7), 7)
+        with unittest.mock.patch('bot'):
+            message = unittest.mock.Mock()
+            message.message.text = '10'
+            message.effective_chat.id = 2
+            bot.dv(message)
+            context.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
 
     def test_2(self):
-        self.assertEqual(testdv(10), 2)
+        with unittest.mock.patch('bot'):
+            message = unittest.mock.Mock()
+            message.message.text = '101'
+            message.effective_chat.id = 5
+            bot.dv(message)
+            context.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
 
     def test_3(self):
-        self.assertEqual(testvos(111), 73)
+        with unittest.mock.patch('bot'):
+            message = unittest.mock.Mock()
+            message.message.text = '7'
+            message.effective_chat.id = 7
+            bot.vos(message)
+            context.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
 
-if __name__ == "__bot__":
-    unittest.bot()
+if __name__ == '__main__':
+    unittest.main()
