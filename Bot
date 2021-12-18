@@ -67,11 +67,11 @@ def repeatss(message): # После того, как бот перевел чи�
             bot.register_next_step_handler(message, dv)
 
 def vos(message): # Перевод из 8 сс
-    number = int(message.text)
-    n = 0
-    answer = 0
+    number = int(message.text) #Число, которое нужно перевести
+    n = 0 #Степень числа
+    answer = 0 #Ответ
     while number > 0:
-        d = number % 10
+        d = number % 10 #Отсечение последнего числа
         answer = answer + d*8**n
         n+=1
         number = number // 10
