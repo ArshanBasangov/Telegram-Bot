@@ -120,7 +120,7 @@ def elemdmg(message):
     global elem
     global alldmg
     elem = int(message.text)
-    alldmg = alldmg*(elem/100)
+    alldmg = alldmg + alldmg*(elem/100)
     bot.send_message(message.chat.id, 'Получается примерно ' + str(alldmg))
     bot.register_next_step_handler(message, Welcome)
 
