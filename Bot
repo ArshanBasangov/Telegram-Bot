@@ -114,7 +114,7 @@ def critdmg(message):
     global alldmg
     crit = int(message.text)
     alldmg = alldmg*(crit/100)
-    bot.send_message(message.chat.id, 'Введите значение элементального или физического урона')
+    bot.send_message(message.chat.id, 'Введите значение бонуснго урона')
     bot.register_next_step_handler(message, elemdmg)
 def elemdmg(message):
     global elem
