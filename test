@@ -9,7 +9,7 @@ class tests(unittest, TestCase):
             message.message.text = '10'
             message.effective_chat.id = 2
             bot.dv(message)
-            context.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
+            bot.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
 
     def test_2(self):
         with unittest.mock.patch('bot'):
@@ -18,7 +18,7 @@ class tests(unittest, TestCase):
             message.message.text = '101'
             message.effective_chat.id = 5
             bot.dv(message)
-            context.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
+            bot.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
 
     def test_3(self):
         with unittest.mock.patch('bot'):
@@ -27,7 +27,7 @@ class tests(unittest, TestCase):
             message.message.text = '7'
             message.effective_chat.id = 7
             bot.vos(message)
-            context.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
+            bot.bot.send_messsage.assert_called_with(chat_id=message.effective_chat.id, text=message.message.text)
 
 if __name__ == '__main__':
     unittest.main()
